@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"
+    integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="./stockfish/src/stockfish-nnue-16-single.js"></script>
+  <script src="https://unpkg.com/draggabilly@3/dist/draggabilly.pkgd.min.js"></script>
+  <!-- <link href="https://fonts.cdnfonts.com/css/chess-alpha" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />        
+  <title>Scacchiera</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="avviso">risoluzione maggiore a 1000 x 720 px </div>
+  <div id="difficult">
+    <div class="facile_container">
+      <i class="fa-solid fa-check check-win"></i>
+      <img id="facile" src="./images/facile.png" data-value="facile" alt="img difficolta facile"></img>
+      <img class="cartello_facile" src="./images/cartello.png" alt="cartello facile"></img>
+    </div>
+    <div class="medio_container">
+      <i class="fa-solid fa-check check-win"></i>
+      <img id="medio" src="./images/medio.png"  data-value="medio" alt="img difficolta medio"></img>
+      <img class="cartello_medio" src="./images/cartello_medio.png" alt="cartello medio" ></img>
+    </div>
+    <div class="difficile_container">
+      <i class="fa-solid fa-check check-win"></i>
+      <img id="difficile" src="./images/difficile.png"  data-value="difficile" alt="img difficolta difficile"></img>
+      <img class="cartello_difficile" src="./images/cartello_difficile.png" alt="cartello difficile"></img>
+    </div>
+  </div>
+  <div id="fazione">
+    <div class="menu">
+      <i class="fa-solid fa-arrow-left"></i>
+    </div>
+    <h1>scegli la tua fazione</h1>
+    <div class="anteprima-pezzi-orcs">
+      <h2>Orchi</h2>
+      <div class="troop-preview">
+        <img src="./images/orchi/anteprime/pawn.png" alt="Goblin Mago">
+        <div class="troop-description">
+            <h3>Goblin Mago (Pedone)</h3>
+            <p>Un goblin astuto e malizioso, con un cappello da mago sbiadito. Pur essendo un mago di modesta statura, la sua genialità gli permette di catturare i nemici con un solo colpo, muovendosi con cautela e sfruttando l'ingegno anziché la forza bruta. Si muove avanti di una casella e cattura diagonalmente, utilizzando incantesimi e trucchi magici per sorprendere e abbattere i suoi avversari.</p>
+        </div>
+    </div>
+    <div class="troop-preview">
+      <img src="./images/orchi/anteprime/bishop.png" alt="Mago degli Antichi Clan">
+      <div class="troop-description">
+          <h3>Mago degli Antichi Clan (Alfiere)</h3>
+          <p>Custode dei segreti arcani degli antichi clan orchi, il Mago è un maestro delle arti mistiche. Si muove lungo le diagonali con grazia e abilità, manipolando il potere magico per proteggere il regno e sconfiggere i nemici.</p>
+      </div>
+    </div>
+    <div class="troop-preview">
+      <img src="./images/orchi/anteprime/rook.png" alt="Torre delle Pietre Forti">
+      <div class="troop-description">
+          <h3>Torre delle Pietre Forti (Torre)</h3>
+          <p>Un'imponente struttura di pietra, la Torre delle Pietre Forti domina l'orizzonte con la sua maestosità. Si muove lungo le linee orizzontali e verticali, avanzando con determinazione e potenza, minacciando qualsiasi avversario osi attraversare il suo cammino.</p>
+      </div>
+    </div>
+    <div class="troop-preview">
+      <img src="./images/orchi/anteprime/knight.png" alt="Lupo Gigante">
+      <div class="troop-description">
+          <h3>Lupo Gigante (Cavallo)</h3>
+          <p>Una creatura mostruosa, metà lupo e metà orco, con zampe poderose. Si muove a forma di "L", due caselle in avanti e una lateralmente, utilizzando la sua forza sovrumana per spazzare via chiunque osi sfidare la sua ferocia.</p>
+      </div>
+    </div>
+    <div class="troop-preview">
+      <img src="./images/orchi/anteprime/king.png" alt="Gran Re Orco">
+      <div class="troop-description">
+          <h3>Gran Re Orco (Re)</h3>
+          <p>Il sovrano incontrastato del regno degli orchi, il Gran Re Orco si muove con fermezza e autorità. Avanza in ogni direzione, ma con cautela e saggezza, poiché la sua sicurezza è fondamentale per la vittoria della battaglia.</p>
+      </div>
+    </div>
+    <div class="troop-preview">
+      <img src="./images/orchi/anteprime/regina.png" alt="Orchessa Guerriera">
+      <div class="troop-description">
+          <h3>Orchessa Guerriera (Regina)</h3>
+          <p>Un'imponente orchessa guerriera, vestita con un'armatura fatta di pelli e ossa, e brandendo una spada possente. La sua maestosità e ferocia in battaglia la rendono una figura temibile sul campo. Si muove con grazia e potenza in tutte le direzioni, combattendo con fierezza e determinazione per difendere il suo regno. </p>
+      </div>
+    </div>
+      <div class="chiudi-anteprima"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <div class="anteprima-pezzi-elfs">
+      <div class="chiudi-anteprima"><i class="fa-solid fa-xmark"></i></div>
+      <h2>Elfi</h2>
+      <div class="troop-preview">
+        <img src="./images/elfi/anteprime/pawn.png" alt="Goblin Mago">
+        <div class="troop-description">
+            <h3>Elfo Esploratore (Pedone)</h3>
+            <p>Un agile elfo vestito con abiti leggeri, armato di una spada affilata, è un abile esploratore. Anche se la sua forza in battaglia può sembrare modesta rispetto ad altri guerrieri, la sua abilità nel maneggiare la spada lo rendono un alleato prezioso sul campo di battaglia. Si muove in avanti di una casella alla volta, con passo deciso e sicuro.</p>
+        </div>
+      </div>
+      <div class="troop-preview">
+        <img src="./images/elfi/anteprime/bishop.png" alt="Goblin Mago">
+        <div class="troop-description">
+            <h3>Alfiere della Lancia Luminosa (Alfiere)</h3>
+            <p>Un valoroso guerriero elfico, armato di una lancia elegante e vestito con un'armatura leggera, pronto a difendere il suo popolo con abilità e agilità. Si muove diagonalmente sulla scacchiera, attaccando il nemico con precisione e destrezza.</p>
+        </div>
+      </div>
+      <div class="troop-preview">
+        <img src="./images/elfi/anteprime/rook.png" alt="Goblin Mago">
+        <div class="troop-description">
+            <h3>Torre Elfica di Guardia (torre)</h3>
+            <p>Una maestosa torre elfica, eretta come baluardo contro gli invasori, con un'armatura di pietra bianca e adornata con motivi naturali come foglie e rami intrecciati. Si muove verticalmente o orizzontalmente, sfondando le difese nemiche con la sua imponenza.</p>
+        </div>
+      </div>
+      <div class="troop-preview">
+        <img src="./images/elfi/anteprime/knight.png" alt="Goblin Mago">
+        <div class="troop-description">
+            <h3>Cervo Bianco (Cavallo)</h3>
+            <p>Un maestoso cervo bianco, simbolo di grazia e agilità elfica. Si muove a forma di "L" sulla scacchiera, sfruttando la sua velocità e agilità per sorprendere gli avversari e aggirare le difese nemiche.</p>
+        </div>
+      </div>
+      <div class="troop-preview">
+        <img src="./images/elfi/anteprime/king.png" alt="Goblin Mago">
+        <div class="troop-description">
+            <h3>Re Elfo del Bosco (Re)</h3>
+            <p>Il sovrano degli elfi, noto per la sua saggezza e la sua forza, con una corona dorata e una spada lucente, avvolto in un mantello regale. Si muove in tutte le direzioni sulla scacchiera, guidando il suo popolo con coraggio e intelligenza.</p>
+        </div>
+      </div>
+      <div class="troop-preview">
+        <img src="./images/elfi/anteprime/queen.png" alt="Goblin Mago">
+        <div class="troop-description">
+            <h3>Regina delle Foreste (Regina)</h3>
+            <p>Una regina elfica dotata di grande potenza e astuzia. Indossa un'armatura scintillante e un mantello regale. La sua abilità speciale le consente di materializzare armi magiche per difendere il suo regno. Si muove liberamente in tutte le direzioni sulla scacchiera, rappresentando la forza e la leadership del suo popolo.</p>
+        </div>
+      </div>
+    </div>
+    <div class="orcs" data-value="orcs">
+      <div class="anteprima" data-value="orcs-anteprima">
+        Anteprima Orchi
+      </div>
+      <div class="orcs-detail">
+        <img class="stemma_orco" src="./images/stemma_orchi.jpg" alt="stemma orco">
+      
+      </div>
+    </div>
+    <div class="elfs" data-value="elfs">
+      <div class="anteprima" data-value="elfs-anteprima">
+        Anteprima Elfi
+      </div>
+      <div class="elfs-detail">
+        <img class="stemma_elfo" src="./images/stemma_elfi.jpg" alt="stemma elfi">
+      </div>
+    </div>
+  </div>
+  <div id="scacchiera" >
+    <div class="overlay-factions">
+      <div class="player">
+        
+      </div>
+      <div class="vs">
+        <h2>vs</h2>
+      </div>
+      <div class="difficult">
+        
+      </div>
+    </div>
+    <div class="cover_background"></div>
+    <div class="background_left"></div>
+    <div class="background_right"></div>
+    <div class="board">
+      <div class="menu">
+        <i class="fa-solid fa-arrow-left"></i>
+      </div>
+      <div class="reset">
+        <i class="fa-solid fa-rotate-right"></i>
+      </div>
+      <div class="status">
+        scacco matto!
+      </div>
+      <div class="promotion elfs">
+        <div>
+          <img src="./images/elfi/pezzi/knight.png" alt="cavallo promozione" data-value="k">
+        </div>
+        <div>
+          <img src="./images/elfi/pezzi/queen.png" alt="regina promozione" data-value="q">
+        </div>
+        <div>
+          <img src="./images/elfi/pezzi/rook.png" alt="torre promozione" data-value="r">
+        </div>
+        <div>
+          <img src="./images/elfi/pezzi/bishop.png" alt="alfiere promozione" data-value="b">
+        </div>
+      </div>
+      <div class="promotion orcs">
+        <div>
+          <img src="./images/orchi/pezzi/knight.png" alt="cavallo promozione" data-value="k">
+        </div>
+        <div>
+          <img src="./images/orchi/pezzi/queen.png" alt="regina promozione" data-value="q">
+        </div>
+        <div>
+          <img src="./images/orchi/pezzi/rook.png" alt="torre promozione" data-value="r">
+        </div>
+        <div>
+          <img src="./images/orchi/pezzi/bishop.png" alt="alfiere promozione" data-value="b">
+        </div>
+      </div>
+      <div class="row">
+        <div class="square light " id="a8">
+          
+          
+        </div>
+        <div class="square dark" id="b8">
+          
+        </div>
+        <div class="square light" id="c8">
+          
+        </div>
+        <div class="square dark" id="d8">
+          
+        </div>
+        <div class="square light" id="e8">
+          
+        </div>
+        <div class="square dark" id="f8">
+          
+        </div>
+        <div class="square light" id="g8">
+          
+        </div>
+        <div class="square dark" id="h8">
+          
+        </div>
+      </div>
+      <div class="row">
+        <div id="a7" class="square dark">
+          
+          
+        </div>
+        <div id="b7" class="square light">
+          
+        </div>
+        <div id="c7" class="square dark">
+          
+        </div>
+        <div id="d7" class="square light">
+          
+        </div>
+        <div id="e7" class="square dark">
+          
+        </div>
+        <div id="f7" class="square light">
+          
+        </div>
+        <div id="g7" class="square dark">
+          
+        </div>
+        <div id="h7" class="square light">
+          
+        </div>
+      </div>
+      <div class="row">
+        <div id="a6" class="square light">
+          
+        </div>
+        <div id="b6" class="square dark"></div>
+        <div id="c6" class="square light"></div>
+        <div id="d6" class="square dark"></div>
+        <div id="e6" class="square light"></div>
+        <div id="f6" class="square dark"></div>
+        <div id="g6" class="square light"></div>
+        <div id="h6" class="square dark"></div>
+      </div>
+      <div class="row">
+        <div id="a5" class="square dark">
+          
+        </div>
+        <div id="b5" class="square light"></div>
+        <div id="c5" class="square dark"></div>
+        <div id="d5" class="square light"></div>
+        <div id="e5" class="square dark"></div>
+        <div id="f5" class="square light"></div>
+        <div id="g5" class="square dark"></div>
+        <div id="h5" class="square light"></div>
+      </div>
+      <div class="row">
+        <div id="a4" class="square light">
+          
+        </div>
+        <div id="b4" class="square dark"></div>
+        <div id="c4" class="square light"></div>
+        <div id="d4" class="square dark"></div>
+        <div id="e4" class="square light"></div>
+        <div id="f4" class="square dark"></div>
+        <div id="g4" class="square light"></div>
+        <div id="h4" class="square dark"></div>
+      </div>
+      <div class="row">
+        <div id="a3" class="square dark">
+          
+        </div>
+        <div id="b3" class="square light">
+        </div>
+        <div id="c3" class="square dark"></div>
+        <div id="d3" class="square light"></div>
+        <div id="e3" class="square dark"></div>
+        <div id="f3" class="square light"></div>
+        <div id="g3" class="square dark"></div>
+        <div id="h3" class="square light"></div>
+      </div>
+      <div class="row">
+        <div id="a2"class="square light">
+          
+          
+        </div>
+        <div id="b2"class="square dark">
+          
+        </div>
+        <div id="c2"class="square light">
+          
+        </div>
+        <div id="d2"class="square dark">
+          
+        </div>
+        <div id="e2"class="square light">
+          
+        </div>
+        <div id="f2"class="square dark">
+          
+        </div>
+        <div id="g2"class="square light">
+          
+        </div>
+        <div id="h2"class="square dark">
+          
+        </div>
+      </div>
+      <div class="row">
+        <div id="a1" class="square dark">
+          
+          
+        </div>
+        <div id="b1" class="square light">
+          
+        </div>
+        <div id="c1" class="square dark">
+          
+        </div>
+        <div id="d1" class="square light">
+          
+        </div>
+        <div id="e1" class="square dark">
+          
+        </div>
+        <div id="f1" class="square light">
+          
+        </div>
+        <div id="g1" class="square dark">
+          
+        </div>
+        <div id="h1" class="square light">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="script.js"></script>
+
+</body>
+
+</html>
