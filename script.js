@@ -1120,22 +1120,22 @@ function updateBoard(mossa1,mossa2) {
         } else {
           switch (piece.type) {
             case 'p':
-              imgSrc = './images/undead/pezzi/pawn.png';
+              imgSrc = './images/dragons/pezzi/pawn.png';
               break;
             case 'r':
-              imgSrc = './images/undead/pezzi/rook.png';
+              imgSrc = './images/dragons/pezzi/rook.png';
               break;
             case 'q':
-              imgSrc = './images/undead/pezzi/queen.png';
+              imgSrc = './images/dragons/pezzi/queen.png';
               break;
             case 'n':
-              imgSrc = './images/undead/pezzi/knight.png';
+              imgSrc = './images/dragons/pezzi/knight.png';
               break;
             case 'b':
-              imgSrc = './images/undead/pezzi/bishop.png';
+              imgSrc = './images/dragons/pezzi/bishop.png';
               break;
             case 'k':
-              imgSrc = './images/undead/pezzi/king.png';
+              imgSrc = './images/dragons/pezzi/king.png';
               break;
           }
         }
